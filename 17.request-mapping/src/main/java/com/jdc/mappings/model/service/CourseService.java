@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
@@ -20,20 +21,31 @@ public class CourseService {
 	private RowMapper<Course> rowMapper;
 	
 	public CourseService() {
-		rowMapper = (rs, rowNum) -> {
-			var c = new Course();
-			c.setId(rs.getInt("id"));
-			c.setName(rs.getString("name"));
-			c.setLevel(Level.valueOf(rs.getString("level")));
-			c.setDuration(rs.getInt("duration"));
-			c.setFees(rs.getInt("fees"));
-			
-			return c;
-		};
+		
+		rowMapper = new BeanPropertyRowMapper<>(Course.class);
+		
+		/*
+		 * rowMapper = (rs, rowNum) -> { var c = new Course(); c.setId(rs.getInt("id"));
+		 * c.setName(rs.getString("name"));
+		 * c.setLevel(Level.valueOf(rs.getString("level")));
+		 * c.setDuration(rs.getInt("duration")); c.setFees(rs.getInt("fees"));
+		 * 
+		 * return c; };
+		 */
 	}
 	
 	
-	public int create(Course c) {
+	public int save(Course c) {
+		
+		if (c.getId() > 0) {
+			courseInsert.getJdbcTemplate()
+				.update("update course set name = ?, level = ?, duration = ?, fees = ? where id = ?", 
+						c.getName(), c.getLevel().name(), 
+						c.getDuration(), c.getFees(), c.getId());
+			
+			return c.getId();
+		}
+		
 		var params = new HashMap<String, Object>();
 		params.put("name", c.getName());
 		params.put("level", c.getLevel().name());

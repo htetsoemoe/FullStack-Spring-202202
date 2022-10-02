@@ -10,13 +10,14 @@
 		
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/course_db"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/mvc_db"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="admin"></property>
 	</bean>
 	
 	<bean name="courseInsert" class="org.springframework.jdbc.core.simple.SimpleJdbcInsert">
 		<constructor-arg ref="dataSource"></constructor-arg>
+		<property name="catalogName" value="mvc_db"></property>
 		<property name="tableName" value="course"></property>
 		<property name="generatedKeyName" value="id"></property>
 	</bean>

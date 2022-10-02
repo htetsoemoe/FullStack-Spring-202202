@@ -20,7 +20,7 @@
 <body>
 
 	<div class="container pt-4">
-		<h1>Course Edit</h1>
+		<h1>Course Details</h1>
 
 		<div class="row">
 			<div class="col-6">
@@ -60,6 +60,13 @@
 					<div class="mb-2">
 						<label for="fees" class="form-label mb-1">Fees</label>
 						<input type="number" name="fees" id="fees" class="form-control" value="${course.fees}"/>
+					</div>
+					
+					<div>
+						<c:url value="/course/edit" var="editLink">
+							<c:param name="id" value="${course.id}"></c:param>
+						</c:url>
+						<a href="${editLink}" class="btn btn-primary">Course Edit</a>
 					</div>
 
 				</form>

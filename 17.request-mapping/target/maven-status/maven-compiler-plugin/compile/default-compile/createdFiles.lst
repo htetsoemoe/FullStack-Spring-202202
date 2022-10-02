@@ -1,0 +1,9 @@
+com\jdc\mappings\model\dto\Level.class
+com\jdc\mappings\model\dto\Result$Status.class
+com\jdc\mappings\model\dto\Result.class
+com\jdc\mappings\controller\WelcomeController.class
+com\jdc\mappings\model\service\CourseService.class
+com\jdc\mappings\model\dto\Course.class
+com\jdc\mappings\controller\CourseController.class
+com\jdc\mappings\controller\InputsController.class
+com\jdc\mappings\controller\MultiController.class
